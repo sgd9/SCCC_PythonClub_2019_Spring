@@ -3,6 +3,7 @@ from .models import ProductType, Product, Review
 from .forms import ProductForm, ReviewForm
 from django.contrib.auth.decorators import login_required
 
+
 # Create your views here.
 def index (request):
     return render(request, 'clubapp/index.html')
@@ -29,6 +30,7 @@ def productdetails(request, id):
 
 # form view
 
+@login_required
 def newProduct(request):
      form=ProductForm
      if request.method=='POST':
@@ -40,7 +42,7 @@ def newProduct(request):
      else:
           form=ProductForm()
      return render(request, 'clubapp/newproduct.html', {'form': form})
-
+@login_required
 def newReview(request):
      form=ReviewForm
      if request.method=='POST':
@@ -53,5 +55,27 @@ def newReview(request):
           form=ReviewForm
      return render(request, 'clubapp/newreview.html', {'form' : form})
 
- 
+def loginmessage(request):
+    return render(request, 'clubapp/loginmessage.html')
 
+def logoutmessage(request):
+    return render(request, 'clubapp/logoutmessage.html')
+
+@login_required
+def newProduct(request):
+     form=ProductForm
+     if request.method=='POST':
+          form=ProductForm(request.POST)
+          if form.is_valid():
+               post=form.save(commit=True)
+               post.save()
+               form=ProductForm()
+     else:
+          form=ProductForm()
+     return render(request, 'clubapp/newproduct.html', {'form': form})
+
+def loginMessage(request):
+     return render(request, 'clubapp/loginmessage.html')
+
+def logoutMessage(request):
+     return render(request, 'clubapp/logoutmessage.html')
