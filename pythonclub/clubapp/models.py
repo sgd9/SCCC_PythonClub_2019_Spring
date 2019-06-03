@@ -21,7 +21,7 @@ class Product(models.Model):
     productprice=models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     productentrydate=models.DateField()
     producturl=models.URLField(null=True, blank=True)
-    productdescription=models.TextField()
+    productdescription=models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.productname
